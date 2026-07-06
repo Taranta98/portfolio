@@ -81,7 +81,7 @@ function useResponsiveSettings() {
     }
 
     return {
-      modelPosition: [2.6, 0.15, 0] as const,
+      modelPosition: [3.4, 0.15, 0] as const,
       modelScale: 1.0,
       logoSize: 0.72,
       starsCount: 4500,

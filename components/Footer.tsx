@@ -11,8 +11,7 @@ export function Footer() {
         </p>
         <p className="text-sm text-muted">
           Realizzato con{" "}
-          <span className="text-violet-light">Next.js</span> &{" "}
-          <span className="text-violet-light">Three.js</span>
+          <span className="text-violet-light">Next.js</span>    
         </p>
       </div>
     </footer>
