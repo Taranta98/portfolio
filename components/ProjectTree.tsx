@@ -30,7 +30,7 @@ function ProjectCard({
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 448px"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy via-transparent to-transparent" />
       </div>
 
       <div className="p-5 sm:p-6">
@@ -84,7 +84,7 @@ function ProjectCard({
 export function ProjectTree() {
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
-      <div className="absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 bg-gradient-to-b from-transparent to-violet/40" />
+      <div className="absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 bg-linear-to-b from-transparent to-violet/40" />
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
@@ -97,7 +97,7 @@ export function ProjectTree() {
           {/* Trunk line */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-1/2 top-0 hidden w-0.5 -translate-x-1/2 bg-gradient-to-b from-violet/60 via-violet/30 to-violet/60 md:block"
+            className="absolute bottom-0 left-1/2 top-0 hidden w-0.5 -translate-x-1/2 bg-linear-to-b from-violet/60 via-violet/30 to-violet/60 md:block"
           />
 
           <ul className="flex flex-col gap-16 md:gap-24">
@@ -137,9 +137,9 @@ export function ProjectTree() {
                     aria-hidden
                     className="mb-6 flex items-center gap-3 md:hidden"
                   >
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent to-violet/40" />
+                    <div className="h-px flex-1 bg-linear-to-r from-transparent to-violet/40" />
                     <div className="h-3 w-3 rounded-full border-2 border-violet bg-background" />
-                    <div className="h-px flex-1 bg-gradient-to-l from-transparent to-violet/40" />
+                    <div className="h-px flex-1 bg-linear-to-l from-transparent to-violet/40" />
                   </div>
 
                   <div

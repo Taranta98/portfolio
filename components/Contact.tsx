@@ -77,7 +77,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="section-padding relative">
-      <div className="absolute inset-0 bg-gradient-to-t from-violet/5 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-violet/5 via-transparent to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
