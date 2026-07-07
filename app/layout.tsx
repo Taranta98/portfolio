@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/data";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.role}`,
@@ -26,10 +16,18 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className="h-full scroll-smooth antialiased"
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

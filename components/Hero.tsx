@@ -1,16 +1,24 @@
 "use client";
 
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
 import { siteConfig } from "@/lib/data";
+import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 
-const HeroScene = dynamic(
-  () => import("./HeroScene").then((m) => m.HeroScene),
-  { ssr: false },
-);
+const orbitLogosOuter = [
+  { src: "/javascript.svg", label: "JavaScript" },
+  { src: "/Laravel-Logo.wine.png", label: "Laravel" },
+  { src: "/tailwindcssimage.webp", label: "Tailwind" },
+  { src: "/databaseimg.png", label: "Database" },
+] as const;
+
+const orbitLogosInner = [
+  { src: "/cssimg.webp", label: "CSS" },
+  { src: "/nextjsimg.webp", label: "Next.js" },
+  { src: "/nodejsimg.webp", label: "Node.js" },
+] as const;
 
 export function Hero() {
   return (
@@ -19,9 +27,6 @@ export function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden"
     >
       <div className="absolute inset-0">
-        <Suspense fallback={null}>
-          <HeroScene />
-        </Suspense>
         <div className="absolute inset-0 bg-linear-to-r from-background/90 via-background/55 to-background/20" />
         <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-background/40" />
       </div>
@@ -91,6 +96,75 @@ export function Hero() {
                 Scarica CV
               </a>
             </motion.div>
+          </div>
+
+          <div className="hidden lg:col-span-5 lg:block xl:col-span-6">
+            <Suspense fallback={null}>
+              <div className="relative ml-auto grid aspect-square w-full max-w-[640px] place-items-center">
+                <div className="relative size-[520px] xl:size-[640px]">
+                  <OrbitingCircles
+                    radius={220}
+                    duration={26}
+                    iconSize={54}
+                    className="bg-navy-light/40 ring-1 ring-border/60 backdrop-blur"
+                    pathClassName="stroke-primary/35"
+                  >
+                    {orbitLogosOuter.map((logo) => (
+                      <div
+                        key={logo.label}
+                        className="grid size-full place-items-center rounded-full"
+                        aria-label={logo.label}
+                        title={logo.label}
+                      >
+                        <Image
+                          src={logo.src}
+                          alt={logo.label}
+                          width={40}
+                          height={40}
+                          className="h-10 w-10 object-contain"
+                        />
+                      </div>
+                    ))}
+                  </OrbitingCircles>
+
+                  <OrbitingCircles
+                    radius={140}
+                    reverse
+                    speed={1.8}
+                    duration={18}
+                    iconSize={48}
+                    className="bg-navy-light/35 ring-1 ring-border/50 backdrop-blur"
+                    path
+                    pathClassName="stroke-primary/25"
+                  >
+                    {orbitLogosInner.map((logo) => (
+                      <div
+                        key={logo.label}
+                        className="grid size-full place-items-center rounded-full"
+                        aria-label={logo.label}
+                        title={logo.label}
+                      >
+                        <Image
+                          src={logo.src}
+                          alt={logo.label}
+                          width={36}
+                          height={36}
+                          className="h-9 w-9 object-contain"
+                        />
+                      </div>
+                    ))}
+                  </OrbitingCircles>
+
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="grid size-28 place-items-center rounded-full bg-background/30 ring-1 ring-border/60 backdrop-blur">
+                      <span className="font-mono text-sm text-muted">
+                        Skills
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Suspense>
           </div>
         </div>
       </div>
