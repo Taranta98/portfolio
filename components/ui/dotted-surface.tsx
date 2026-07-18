@@ -97,9 +97,12 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
     let count = 0;
     let animationId = 0;
+    let cancelled = false;
+    // Lower = slower wave drift (original was ~0.1 per frame).
+    const WAVE_SPEED = 0.012;
 
-    // Animation function
     const animate = () => {
+      if (cancelled) return;
       animationId = requestAnimationFrame(animate);
 
       const positionAttribute = geometry.attributes.position;
@@ -110,7 +113,6 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const index = i * 3;
 
-          // Animate Y position with sine waves
           pos[index + 1] =
             Math.sin((ix + count) * 0.3) * 50 +
             Math.sin((iy + count) * 0.5) * 50;
@@ -121,10 +123,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
       positionAttribute.needsUpdate = true;
       renderer.render(scene, camera);
-      count += 0.1;
+      count += WAVE_SPEED;
     };
 
-    // Handle window resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -132,11 +133,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     };
 
     window.addEventListener("resize", handleResize);
-
-    // Start animation
     animate();
 
-    // Store references
     sceneRef.current = {
       scene,
       camera,
@@ -146,31 +144,29 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       count,
     };
 
-    // Cleanup function
     return () => {
+      cancelled = true;
+      cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
 
-      if (sceneRef.current) {
-        cancelAnimationFrame(sceneRef.current.animationId);
-
-        // Clean up Three.js objects
-        sceneRef.current.scene.traverse((object) => {
-          if (object instanceof THREE.Points) {
-            object.geometry.dispose();
-            if (Array.isArray(object.material)) {
-              object.material.forEach((m) => m.dispose());
-            } else {
-              object.material.dispose();
-            }
+      scene.traverse((object) => {
+        if (object instanceof THREE.Points) {
+          object.geometry.dispose();
+          if (Array.isArray(object.material)) {
+            object.material.forEach((m) => m.dispose());
+          } else {
+            object.material.dispose();
           }
-        });
-
-        sceneRef.current.renderer.dispose();
-
-        if (sceneRef.current.renderer.domElement.parentElement === containerEl) {
-          containerEl.removeChild(sceneRef.current.renderer.domElement);
         }
+      });
+
+      renderer.dispose();
+
+      if (renderer.domElement.parentElement === containerEl) {
+        containerEl.removeChild(renderer.domElement);
       }
+
+      sceneRef.current = null;
     };
   }, [theme]);
 

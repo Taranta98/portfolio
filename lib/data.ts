@@ -82,7 +82,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: "Backend",
-    skills: ["Laravel", "PHP", "Node.js", "REST API", "JWT", "GraphQL"],
+    skills: ["Laravel", "PHP", "Node.js", "REST API", "JWT"],
   },
   {
     name: "Database",
@@ -163,5 +163,4 @@ export const navLinks = [
   { label: "Chi sono", href: "#about" },
   { label: "Percorso", href: "#experience" },
   { label: "Progetti", href: "#projects" },
-  { label: "Contatti", href: "#contact" },
 ];
