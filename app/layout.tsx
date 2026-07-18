@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.role}`,
   description: siteConfig.tagline,
+  verification: {
+    google: "hFfVEuvge8DJie4GBJDjIp9xa_CTnBoFsXa7wmndTn0",
+  },
 };
 
 export default function RootLayout({
